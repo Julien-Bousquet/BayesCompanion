@@ -11,7 +11,7 @@ betaParams(
   sd = NA,
   k = NA,
   mode = NA,
-  verbose = TRUE
+  verbose = FALSE
 )
 }
 \arguments{
@@ -26,6 +26,8 @@ betaParams(
 \item{k}{concentration of the distribution}
 
 \item{mode}{of the distribution}
+
+\item{verbose}{= FALSE set to TRUE to get more explanation}
 }
 \value{
 A list of all possible values of parameters

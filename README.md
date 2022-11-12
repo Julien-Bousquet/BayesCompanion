@@ -11,15 +11,18 @@ The goal of BayesCompanion is to ...
 You can install the released version of BayesCompanion from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("BayesCompanion")
+library(remotes)
+
+install_git('https://github.com/Julien-Bousquet/BayesCompanion')
 ```
 
 ## Example
+To visualize shape of normal density and impact of its parameters.
 
-This is a basic example which shows you how to solve a common problem:
+Permet de visualiser la forme de la densité normale selon les valeurs de ses paramètres.
 
 ``` r
 library(BayesCompanion)
-## basic example code
+normaleShiny() # 
 ```
 

@@ -15,7 +15,7 @@ Demonstrate behaviour of the parameters of
 Student distribution, in a shiny application.
 }
 \examples{
-StudentShiny()
+cat('StudentShiny()')
 
 }
 \author{

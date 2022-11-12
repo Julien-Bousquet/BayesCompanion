@@ -15,6 +15,7 @@ NULL
 #' @param sd standard deviation of the distribution
 #' @param k concentration of the distribution
 #' @param mode of the distribution
+#' @param verbose = FALSE set to TRUE to get more explanation
 #'
 #' @return A list of all possible values of parameters
 #' 
@@ -25,7 +26,7 @@ NULL
 #' betaParams(a=12, b=12)
 #' 
 #' @export
-betaParams <- function(a=NA, b=NA, mean=NA, sd=NA, k=NA, mode=NA, verbose=TRUE){
+betaParams <- function(a=NA, b=NA, mean=NA, sd=NA, k=NA, mode=NA, verbose=FALSE){
 	m <- mean 
 	s <- sd
 	debg <- FALSE # debugage
@@ -83,11 +84,12 @@ betaParams <- function(a=NA, b=NA, mean=NA, sd=NA, k=NA, mode=NA, verbose=TRUE){
 #' (mean, sd) or (mean, mode) are implemented .
 #'
 #' @author Julien Bousquet (2022)
-#' @param s shape parameter
-#' @param r rate parameter
+#' @param shape parameter
+#' @param rate parameter
 #' @param m mean of the distribution
-#' @param s standard deviation of the distribution
+#' @param sd standard deviation of the distribution
 #' @param mode of the distribution
+#' @param verbose = FALSE set to TRUE to get more explanation
 #' 
 #' @export
 #' @examples 
@@ -95,7 +97,7 @@ betaParams <- function(a=NA, b=NA, mean=NA, sd=NA, k=NA, mode=NA, verbose=TRUE){
 #' gammaParams(shape=0.6, rate=1) # OK 
 #' gammaParams(m=0.5, sd=0.2)     # OK 
 #' gammaParams(mode=0.5, sd=5)    # OK
- gammaParams <- function(shape=NA, rate=NA, m=NA, sd=NA, mode=NA, verbose=TRUE){
+ gammaParams <- function(shape=NA, rate=NA, m=NA, sd=NA, mode=NA, verbose=FALSE){
 	debg <- FALSE # debugage
 	# Everything from s and r
   if(!is.na(shape) & !is.na(rate)){
@@ -599,8 +601,6 @@ uiWeibull <- fluidPage(
   sidebarLayout(
     # Sidebar panel for inputs ----
     sidebarPanel(
-
-   # Input : Slider nu le degr&eacute; de libert&eacute;
       sliderInput(inputId = "nu",
                   label = HTML("&nu;, la forme <i>shape</i> :<br/>"),
                   min   = 0.1,
@@ -608,8 +608,6 @@ uiWeibull <- fluidPage(
                   value = 1,
 	  step   = 0.1 
 	),
-
-   # Input : Slider mu l'esperance
       sliderInput(inputId = "sigma",
                   label = HTML("&sigma;, <i>scale</i>, <br/> param&egrave;tre de position:"),
                   min   = 0.1,
@@ -619,18 +617,13 @@ uiWeibull <- fluidPage(
 	),
 
         plotOutput(outputId="precision")
-   ), # fin du sidebar panel
-
-    # Main panel for displaying outputs ----
+   ), 
     mainPanel(
       # Output: Density ----
       plotOutput(outputId = "density"),
     )
   )
 )
-
-
-
 
 
 
@@ -644,7 +637,7 @@ uiWeibull <- fluidPage(
 #' @return None
 #' @author Julien Bousquet (2022)
 #' @examples 
-#' normaleShiny()
+#' cat('normaleShiny()')
 #'
 #' @export
 normaleShiny <- function(){
@@ -656,7 +649,7 @@ normaleShiny <- function(){
 #' @author Julien Bousquet (2022)
 #' @return None
 #' @examples 
-#' betaShiny()
+#' cat(betaShiny()')
 #'
 #' @export
 betaShiny <-  function(){
@@ -668,7 +661,7 @@ betaShiny <-  function(){
 #' @author Julien Bousquet (2022)
 #' @return None
 #' @examples 
-#' StudentShiny()
+#' cat('StudentShiny()')
 #'
 #' @export
 StudentShiny <-  function(){
@@ -680,7 +673,7 @@ StudentShiny <-  function(){
 #' @author Julien Bousquet (2022)
 #' @return None
 #' @examples 
-#' WeibullShiny()
+#' cat('WeibullShiny()')
 #'
 #' @export
 WeibullShiny <-  function(){

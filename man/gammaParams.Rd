@@ -4,16 +4,20 @@
 \alias{gammaParams}
 \title{Compute params of gamma distribution}
 \usage{
-gammaParams(shape = NA, rate = NA, m = NA, sd = NA, mode = NA, verbose = TRUE)
+gammaParams(shape = NA, rate = NA, m = NA, sd = NA, mode = NA, verbose = FALSE)
 }
 \arguments{
+\item{shape}{parameter}
+
+\item{rate}{parameter}
+
 \item{m}{mean of the distribution}
+
+\item{sd}{standard deviation of the distribution}
 
 \item{mode}{of the distribution}
 
-\item{r}{rate parameter}
-
-\item{s}{standard deviation of the distribution}
+\item{verbose}{= FALSE set to TRUE to get more explanation}
 }
 \description{
 Compute params of gamma distribution

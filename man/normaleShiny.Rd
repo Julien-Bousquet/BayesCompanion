@@ -14,7 +14,7 @@ Demonstrate behaviour of the parameters of
 normal distribution, in a shiny application.
 }
 \examples{
-normaleShiny()
+cat('normaleShiny()')
 
 }
 \author{
