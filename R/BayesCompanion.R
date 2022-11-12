@@ -541,6 +541,98 @@ uiStudent <- shiny::fluidPage(
   )
 )
 
+##### server and ui of wibull's distribution #########
+serverWeibull <- function(input, output) {
+  nu <- reactive({return(input$nu)})  
+  sigma <-   reactive({return(input$sigma)})
+  lambda <- reactive({return(1/input$sigma^(input$nu))})
+
+# le graphique de la weibull nu, lambda dans JAGS
+  output$density <- renderPlot({
+	x <- sort(c(seq(0.001,10, length.out=100), 
+	            abs(seq(lambda()-sigma(), lambda()+sigma(), length.out=100))))
+	
+	y <- dweibull(x, shape=nu(), scale=sigma())
+	plot(x, y, type='l', lwd=5, col='blue',
+		xlab='x', ylab="p(x)",
+		ylim=c(0,1.2),
+		main=bquote(atop("Densite de la loi de Weibull", 
+		  "Weibull("*nu*'='*.(signif(nu(),2))*', '*lambda *'='*.(signif(lambda(),1)) * ', ' *sigma*'=' *.(signif(sigma(),2))  * ')' ) )
+	)
+	a <- qweibull(0.025, shape=nu(), scale=sigma())
+	b <- qweibull(0.975, shape=nu(), scale=sigma())
+	# IDC de t
+	lines(rep(a,2), c(dweibull(a, shape=nu(), scale=sigma())+0.15,0), 
+		col='blue', lwd=3, lty='dotted')
+	lines(rep(b,2), c(dweibull(b,  shape=nu(), scale=sigma())+0.1,0), 
+		col='blue', lwd=3, lty='dotted')
+
+	text( (a+b)/2,0.05, "95%", col='blue', cex=1, adj=0.5)
+	arrows(x0=a,y0=0, x1=b,y1=0, col='blue', code=3, angle=17.5, length=0.15)
+	esperance <- gamma(1+1/nu())*sigma()
+	lines(rep(esperance,2),  c(0,max(y)), col='blue', lwd=3)
+	text(esperance, 0.75*max(y), 'Esperance', col='blue', cex=2, adj=0)
+    })
+
+  output$precision <- renderPlot({	
+	x <- seq(0.1, 5, length.out=100)
+	y <- 1/x^nu()
+	preci <- 1/sigma()^nu()
+	plot(x,y, type='l', col='blue', lwd=2,
+		xlab=bquote(sigma), ylab=bquote('Taux = '~lambda), 
+		main=bquote('Taux ='~frac(1,sigma^nu )),
+		log='y',
+		xlim=c(0,6)
+	)
+	points(sigma(), preci, col='red', cex=4, pch=16)
+	lines(c(0,sigma()), rep(preci,2), lty='dotted',col='blue')
+	text(sigma()+0.5, preci, signif(preci,3), cex=1.5)
+  })
+}
+
+
+uiWeibull <- fluidPage(
+# App title ----
+  titlePanel(HTML("Repr&eacute;sentation de la densit&eacute; de la loi de Student")),
+
+  # Sidebar layout with input and output definitions ----
+  sidebarLayout(
+    # Sidebar panel for inputs ----
+    sidebarPanel(
+
+   # Input : Slider nu le degr&eacute; de libert&eacute;
+      sliderInput(inputId = "nu",
+                  label = HTML("&nu;, la forme <i>shape</i> :<br/>"),
+                  min   = 0.1,
+                  max   = 5,
+                  value = 1,
+	  step   = 0.1 
+	),
+
+   # Input : Slider mu l'esperance
+      sliderInput(inputId = "sigma",
+                  label = HTML("&sigma;, <i>scale</i>, <br/> param&egrave;tre de position:"),
+                  min   = 0.1,
+                  max   = 10,
+                  value = 1,
+	  step   = 0.1 
+	),
+
+        plotOutput(outputId="precision")
+   ), # fin du sidebar panel
+
+    # Main panel for displaying outputs ----
+    mainPanel(
+      # Output: Density ----
+      plotOutput(outputId = "density"),
+    )
+  )
+)
+
+
+
+
+
 
 ################################
 # Call to shiny functions  ################
@@ -579,7 +671,20 @@ betaShiny <-  function(){
 #' StudentShiny()
 #'
 #' @export
-
 StudentShiny <-  function(){
 	shiny::shinyApp(ui = uiStudent, server = serverStudent)
 }
+#' Demonstrate behaviour of the parameters of 
+#' Weibull distribution, in a shiny application.
+#'
+#' @author Julien Bousquet (2022)
+#' @return None
+#' @examples 
+#' WeibullShiny()
+#'
+#' @export
+WeibullShiny <-  function(){
+	shinyApp(ui = uiWeibull, server = serverWeibull)
+}
+
+
