@@ -1,0 +1,24 @@
+Package: BayesCompanion
+Title: Companion for Doing Bayesian Data Analysis
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Julien",
+           family = "Bousquet",
+           role = c("aut", "cre"),
+           email = "julien.bousquet@u-bordeaux.fr",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package gives some tools to help non-statistician doing bayesian data analysis. Inspired by the book Doing Bayesian Data Analysis from John Kruchke, it helps learner to understand some distribution, et make usual representations.
+License: GPL (>=3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    shiny,
+    ggdist,
+    graphics,
+    stats
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
