@@ -108,7 +108,8 @@ betaParams <- function(a=NA, b=NA, mean=NA, sd=NA, k=NA, mode=NA, verbose=FALSE)
 			shape=shape, rate=rate, 
 			mean=shape/rate, 
 			mode=max(c((shape-1)/rate, 0)),
-			sd=sqrt(shape)/rate
+			sd=sqrt(shape)/rate,
+			scale=1/rate
 			)
 		if(debg)print('List of response is created')
 		return(res); #break
@@ -661,12 +662,12 @@ serverGamma <- function(input, output) {
     })
 
   output$precision <- renderPlot({	
-	x <- seq(0.1, 5, length.out=100)
-	y <- 1/x
+	x <- seq(0.001, 5, length.out=100) # theta in wikipedia
+	y <- 1/x # lambda in JAGS
 	preci <- 1/theta()
 	plot(x,y, type='l', col='blue', lwd=2,
 		xlab=bquote(theta), ylab=bquote('Taux = '~lambda), 
-		main=bquote('Taux ='~frac(1,theta)),
+		main=bquote('Taux ='~lambda~frac(1,theta)),
 		log='y',
 		xlim=c(0,6)
 	)
@@ -679,7 +680,7 @@ serverGamma <- function(input, output) {
 
 uiGamma <- fluidPage(
 # App title ----
-  titlePanel(HTML("Repr&eacute;sentation de la densit&eacute; de la loi de Student")),
+  titlePanel(HTML("Repr&eacute;sentation de la densit&eacute; de la loi gamma")),
 
   # Sidebar layout with input and output definitions ----
   sidebarLayout(
