@@ -559,7 +559,7 @@ serverWeibull <- function(input, output) {
 		xlab='x', ylab="p(x)",
 		ylim=c(0,1.2),
 		main=bquote(atop("Densite de la loi de Weibull", 
-		  "Weibull("*nu*'='*.(signif(nu(),2))*', '*lambda *'='*.(signif(lambda(),1)) * ', ' *sigma*'=' *.(signif(sigma(),2))  * ')' ) )
+		  "JAGS utilise Weibull("*nu*'='*.(signif(nu(),2))*', '*lambda *'='*.(signif(lambda(),1)) * '), R utilise' *sigma*'=' *.(signif(sigma(),2))  * ' ' ) )
 	)
 	a <- qweibull(0.025, shape=nu(), scale=sigma())
 	b <- qweibull(0.975, shape=nu(), scale=sigma())
@@ -627,6 +627,90 @@ uiWeibull <- fluidPage(
 
 
 
+##### server and ui of gamma's distribution #########
+serverGamma <- function(input, output) {
+  r <- reactive({return(input$r)})  
+  theta <-   reactive({return(input$theta)})
+  lambda <- reactive({return(1/input$theta)})
+
+# le graphique de la weibull nu, lambda dans JAGS
+  output$density <- renderPlot({
+	x <- sort(c(seq(0.001,10, length.out=100), 
+	            abs(seq(r()*theta()-theta()*sqrt(r()), r()*theta()+theta()*sqrt(r()), length.out=100))))
+	
+	y <- dgamma(x, shape=r(), scale=theta())
+	plot(x, y, type='l', lwd=5, col='blue',
+		xlab='x', ylab="p(x)",
+		ylim=c(0,1.2),
+		main=bquote(atop("Densite de la loi gamma", 
+		  "Gamma("*r*'='*.(signif(r(),2))*', '*lambda *'='*.(signif(lambda(),1)) *'), ou scale= ' *.(signif(1/lambda(),2))*' pour R'  ))
+	)
+	a <- qgamma(0.025, shape=r(), scale=theta())
+	b <- qgamma(0.975, shape=r(), scale=theta())
+	# IDC de t
+	lines(rep(a,2), c(dgamma(a, shape=r(), scale=theta())+0.15,0), 
+		col='blue', lwd=3, lty='dotted')
+	lines(rep(b,2), c(dgamma(b,  shape=r(), scale=theta())+0.1,0), 
+		col='blue', lwd=3, lty='dotted')
+
+	text( (a+b)/2,0.05, "95%", col='blue', cex=1, adj=0.5)
+	arrows(x0=a,y0=0, x1=b,y1=0, col='blue', code=3, angle=17.5, length=0.15)
+	esperance <- r()*theta()
+	lines(rep(esperance,2),  c(0,max(y)), col='blue', lwd=3)
+	text(esperance, 0.75*max(y), 'Esperance', col='blue', cex=2, adj=0)
+    })
+
+  output$precision <- renderPlot({	
+	x <- seq(0.1, 5, length.out=100)
+	y <- 1/x
+	preci <- 1/theta()
+	plot(x,y, type='l', col='blue', lwd=2,
+		xlab=bquote(theta), ylab=bquote('Taux = '~lambda), 
+		main=bquote('Taux ='~frac(1,theta)),
+		log='y',
+		xlim=c(0,6)
+	)
+	points(theta(), preci, col='red', cex=4, pch=16)
+	lines(c(0,theta()), rep(preci,2), lty='dotted',col='blue')
+	text(theta()+0.5, preci, signif(preci,3), cex=1.5)
+  })
+}
+
+
+uiGamma <- fluidPage(
+# App title ----
+  titlePanel(HTML("Repr&eacute;sentation de la densit&eacute; de la loi de Student")),
+
+  # Sidebar layout with input and output definitions ----
+  sidebarLayout(
+    # Sidebar panel for inputs ----
+    sidebarPanel( 
+      sliderInput(inputId = "r",
+                  label = HTML("<i>r, shape</i>,<br/> la forme :"),
+                  min   = 0.1,
+                  max   = 5,
+                  value = 1,
+	  step   = 0.1 
+	),
+      sliderInput(inputId = "theta",
+                  label = HTML("&theta;, <i>scale</i>, <br/> param&egrave;tre de position:"),
+                  min   = 0.1,
+                  max   = 10,
+                  value = 1,
+	  step   = 0.1 
+	),
+
+        plotOutput(outputId="precision")
+   ),
+    mainPanel(
+      # Output: Density ----
+      plotOutput(outputId = "density"),
+    )
+  )
+)
+
+
+
 ################################
 # Call to shiny functions  ################
 ###############################
@@ -679,5 +763,21 @@ StudentShiny <-  function(){
 WeibullShiny <-  function(){
 	shinyApp(ui = uiWeibull, server = serverWeibull)
 }
+
+#' Demonstrate behaviour of the parameters of 
+#' Weibull distribution, in a shiny application.
+#'
+#' @author Julien Bousquet (2022)
+#' @return None
+#' @examples 
+#' cat('gammaShiny()')
+#'
+#' @export
+gammaShiny <-  function(){
+	shinyApp(ui = uiGamma, server = serverGamma)
+}
+gammaShiny()
+
+
 
 
