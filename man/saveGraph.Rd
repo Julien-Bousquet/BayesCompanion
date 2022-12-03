@@ -7,11 +7,11 @@
 saveGraph(file = "saveGraphOutput", type = "pdf", ...)
 }
 \arguments{
-\item{file, }{string of the name of file.}
+\item{file}{string of the name of file.}
 
-\item{type, }{string of the file type. 'pdf' by default, 'jpg', 'png' or 'eps' are possible.}
+\item{type}{string of the file type. 'pdf' by default, 'jpg', 'png' or 'eps' are possible.}
 
-\item{..., }{more parameters for \code{savePlot()}}
+\item{...}{more parameters for \code{savePlot()}}
 }
 \description{
 Function for saving graphics that operate the same for

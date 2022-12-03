@@ -11,10 +11,10 @@ NULL
 #' John K. Kruschke in Doing Bayesian Data Analysis, 2nd edition, 2015
 #'
 #' @author John K. Kruschke (2015)
-#' @param width, width of the device in inches.
-#' @param height, height of the device in inches.
-#' @param mag, magnification coefficient.
-#' @param ..., more parameters for `dev.new()`
+#' @param width width of the device in inches.
+#' @param height height of the device in inches.
+#' @param mag magnification coefficient.
+#' @param ... more parameters for `dev.new()`
 #' @examples
 #' #openGraph()
 #' hist(rnorm(2000))
@@ -45,9 +45,9 @@ openGraph = function( width=7 , height=7 , mag=1.0 , ... ) {
 #' Writen by John K. Kruschke in Doing Bayesian Data Analysis, 2nd edition, 2015
 #'
 #' @author John K. Kruschke (2015)
-#' @param file, string of the name of file.
-#' @param type, string of the file type. 'pdf' by default, 'jpg', 'png' or 'eps' are possible.
-#' @param ..., more parameters for `savePlot()`
+#' @param file string of the name of file.
+#' @param type string of the file type. 'pdf' by default, 'jpg', 'png' or 'eps' are possible.
+#' @param ... more parameters for `savePlot()`
 #' @examples
 #' #openGraph()
 #' hist(rnorm(2000))
@@ -78,9 +78,9 @@ saveGraph = function( file="saveGraphOutput" , type="pdf" , ... ) {
 #' Writen by John K. Kruschke in Doing Bayesian Data Analysis, 2nd edition, 2015
 #'
 #' @author John K. Kruschke (2015)
-#' @param codaObject, coda object from an MCMC sampler.
-#' @param parName, string giving the name of the parameter to plot. 
-#' @param plColors, vector of strings giving the colors of the different chains plot.
+#' @param codaObject coda object from an MCMC sampler.
+#' @param parName string giving the name of the parameter to plot. 
+#' @param plColors vector of strings giving the colors of the different chains plot.
 #' @export
 DbdaAcfPlot = function( codaObject , parName=varnames(codaObject)[1] , plColors=NULL ) {
   if ( all( parName != varnames(codaObject) ) ) { 
@@ -109,9 +109,9 @@ DbdaAcfPlot = function( codaObject , parName=varnames(codaObject)[1] , plColors=
 #' Writen by John K. Kruschke in Doing Bayesian Data Analysis, 2nd edition, 2015
 #'
 #' @author John K. Kruschke (2015)
-#' @param codaObject, coda object from an MCMC sampler.
-#' @param parName, string giving the name of the parameter to plot. 
-#' @param plColors, vector of strings giving the colors of the different chains plot.
+#' @param codaObject coda object from an MCMC sampler.
+#' @param parName string giving the name of the parameter to plot. 
+#' @param plColors vector of strings giving the colors of the different chains plot.
 #' @export
 DbdaDensPlot = function( codaObject , parName=varnames(codaObject)[1] , plColors=NULL ) {
   if ( all( parName != varnames(codaObject) ) ) { 
@@ -142,15 +142,15 @@ DbdaDensPlot = function( codaObject , parName=varnames(codaObject)[1] , plColors
 
 #' Graphics for Diagnostic of MCMC chains' convergence, in coda format.
 #'
-#' Usual diagnostic statistics to assess convergence of MCMC chains : traceplot, Gelman shrinkage
+#' Usual diagnostic statistics to assess convergence of one paramater of an MCMC chains : traceplot, Gelman shrinkage
 #' coefficient, autocorrelation, and density plots.
 #' Writen by John K. Kruschke in Doing Bayesian Data Analysis, 2nd edition, 2015
 #'
 #' @author John K. Kruschke (2015)
-#' @param codaObject, coda object from an MCMC sampler.
-#' @param parName, string giving the name of the parameter to plot. 
-#' @param saveName, a string giving the name of the file to write the image.
-#' @param saveType, a string giving the saving format of the image. : 'jpg', 'png', 'eps'.
+#' @param codaObject coda object from an MCMC sampler.
+#' @param parName string giving the name of the parameter to plot. 
+#' @param saveName a string giving the name of the file to write the image.
+#' @param saveType a string giving the saving format of the image. : 'jpg', 'png', 'eps'.
 #' @export
 diagMCMC = function( codaObject , parName=varnames(codaObject)[1] ,
                      saveName=NULL , saveType="jpg" ) {
@@ -193,8 +193,8 @@ diagMCMC = function( codaObject , parName=varnames(codaObject)[1] ,
 #' @author John K. Kruschke (2015)
 #' @param paramSampleVec the vector of the MCMC parameter's sample.
 #' @param compVal numeric : value to compare.
-#' @param ROPE : vector of 2 limits defining the Range Of Practical Equivalence.
-#' @param credMass, the mass of credibility in the High Density Interval, 0.95 by default.
+#' @param ROPE  vector of 2 limits defining the Range Of Practical Equivalence.
+#' @param credMass the mass of credibility in the High Density Interval, 0.95 by default.
 #' @return the vector of mcmc summary values.
 #' @examples
 #' summarizePost(rnorm(2000), ROPE=c(-1,1), compVal=0)
@@ -241,14 +241,14 @@ summarizePost <- function( paramSampleVec ,
 #' John K. Kruschke in Doing Bayesian Data Analysis, 2nd edition
 #'
 #' @author John K. Kruschke (2015)
-#' @param paramSampleVec, the vector of the MCMC parameter's sample
-#' @param cenTend, "mode" by default for Central Tendency. Possible other values are "median", or "mean".
-#' @param compVal, numeric : value to compare.
-#' @param ROPE : vector of 2 limits defining the Range Of Practical Equivalence
-#' @param credMass, the mass of credibility in the High Density Interval
-#' @param HDItextPlace, by default 0.7 : position of the text "HDI". 
-#' @param showCurve,  a boolean. FALSE by default. If TRUE, plot the curve of density instead off histogram.
-#' @param ..., other parameters given to hist() function, such xlab, xlim, yaxt, etc.
+#' @param paramSampleVec the vector of the MCMC parameter's sample
+#' @param cenTend "mode" by default for Central Tendency. Possible other values are "median", or "mean".
+#' @param compVal numeric : value to compare.
+#' @param ROPE  vector of 2 limits defining the Range Of Practical Equivalence
+#' @param credMass the mass of credibility in the High Density Interval
+#' @param HDItextPlace by default 0.7 : position of the text "HDI". 
+#' @param showCurve  a boolean. FALSE by default. If TRUE, plot the curve of density instead off histogram.
+#' @param ... other parameters given to hist() function, such xlab, xlim, yaxt, etc.
 #' @return Plot the histogram of the mcmcm values. Return the vector of mcmc summary values.
 #' @examples
 #' plotPost(rnorm(2000), ROPE=c(-1,1), compVal=0)

@@ -11,9 +11,9 @@ summarizePost(paramSampleVec, compVal = NULL, ROPE = NULL, credMass = 0.95)
 
 \item{compVal}{numeric : value to compare.}
 
-\item{ROPE}{: vector of 2 limits defining the Range Of Practical Equivalence.}
+\item{ROPE}{vector of 2 limits defining the Range Of Practical Equivalence.}
 
-\item{credMass, }{the mass of credibility in the High Density Interval, 0.95 by default.}
+\item{credMass}{the mass of credibility in the High Density Interval, 0.95 by default.}
 }
 \value{
 the vector of mcmc summary values.

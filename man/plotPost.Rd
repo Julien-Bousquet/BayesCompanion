@@ -28,21 +28,21 @@ plotPost(
 )
 }
 \arguments{
-\item{paramSampleVec, }{the vector of the MCMC parameter's sample}
+\item{paramSampleVec}{the vector of the MCMC parameter's sample}
 
-\item{cenTend, }{"mode" by default for Central Tendency. Possible other values are "median", or "mean".}
+\item{cenTend}{"mode" by default for Central Tendency. Possible other values are "median", or "mean".}
 
-\item{compVal, }{numeric : value to compare.}
+\item{compVal}{numeric : value to compare.}
 
-\item{ROPE}{: vector of 2 limits defining the Range Of Practical Equivalence}
+\item{ROPE}{vector of 2 limits defining the Range Of Practical Equivalence}
 
-\item{credMass, }{the mass of credibility in the High Density Interval}
+\item{credMass}{the mass of credibility in the High Density Interval}
 
-\item{HDItextPlace, }{by default 0.7 : position of the text "HDI".}
+\item{HDItextPlace}{by default 0.7 : position of the text "HDI".}
 
-\item{showCurve, }{a boolean. FALSE by default. If TRUE, plot the curve of density instead off histogram.}
+\item{showCurve}{a boolean. FALSE by default. If TRUE, plot the curve of density instead off histogram.}
 
-\item{..., }{other parameters given to hist() function, such xlab, xlim, yaxt, etc.}
+\item{...}{other parameters given to hist() function, such xlab, xlim, yaxt, etc.}
 }
 \value{
 Plot the histogram of the mcmcm values. Return the vector of mcmc summary values.

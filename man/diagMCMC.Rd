@@ -12,16 +12,16 @@ diagMCMC(
 )
 }
 \arguments{
-\item{codaObject, }{coda object from an MCMC sampler.}
+\item{codaObject}{coda object from an MCMC sampler.}
 
-\item{parName, }{string giving the name of the parameter to plot.}
+\item{parName}{string giving the name of the parameter to plot.}
 
-\item{saveName, }{a string giving the name of the file to write the image.}
+\item{saveName}{a string giving the name of the file to write the image.}
 
-\item{saveType, }{a string giving the saving format of the image. : 'jpg', 'png', 'eps'.}
+\item{saveType}{a string giving the saving format of the image. : 'jpg', 'png', 'eps'.}
 }
 \description{
-Usual diagnostic statistics to assess convergence of MCMC chains : traceplot, Gelman shrinkage
+Usual diagnostic statistics to assess convergence of one paramater of an MCMC chains : traceplot, Gelman shrinkage
 coefficient, autocorrelation, and density plots.
 Writen by John K. Kruschke in Doing Bayesian Data Analysis, 2nd edition, 2015
 }

@@ -7,11 +7,11 @@
 DbdaDensPlot(codaObject, parName = varnames(codaObject)[1], plColors = NULL)
 }
 \arguments{
-\item{codaObject, }{coda object from an MCMC sampler.}
+\item{codaObject}{coda object from an MCMC sampler.}
 
-\item{parName, }{string giving the name of the parameter to plot.}
+\item{parName}{string giving the name of the parameter to plot.}
 
-\item{plColors, }{vector of strings giving the colors of the different chains plot.}
+\item{plColors}{vector of strings giving the colors of the different chains plot.}
 }
 \description{
 Function for plotting Density graphics, usually for MCMC. Used in diagMCMC().

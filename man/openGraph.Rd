@@ -7,13 +7,13 @@
 openGraph(width = 7, height = 7, mag = 1, ...)
 }
 \arguments{
-\item{width, }{width of the device in inches.}
+\item{width}{width of the device in inches.}
 
-\item{height, }{height of the device in inches.}
+\item{height}{height of the device in inches.}
 
-\item{mag, }{magnification coefficient.}
+\item{mag}{magnification coefficient.}
 
-\item{..., }{more parameters for \code{dev.new()}}
+\item{...}{more parameters for \code{dev.new()}}
 }
 \description{
 Function for opening graphics that operate the same for
