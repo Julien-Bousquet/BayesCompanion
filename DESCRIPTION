@@ -17,7 +17,11 @@ Imports:
     shiny,
     ggdist,
     graphics,
-    stats
+    stats,
+    coda,
+    HDInterval,
+    grDevices,
+    qpdf
 Suggests: 
     knitr,
     rmarkdown

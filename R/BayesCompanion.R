@@ -596,7 +596,7 @@ serverWeibull <- function(input, output) {
 
 uiWeibull <- fluidPage(
 # App title ----
-  titlePanel(HTML("Repr&eacute;sentation de la densit&eacute; de la loi de Student")),
+  titlePanel(HTML("Repr&eacute;sentation de la densit&eacute; de la loi de Weilbull")),
 
   # Sidebar layout with input and output definitions ----
   sidebarLayout(
@@ -643,8 +643,8 @@ serverGamma <- function(input, output) {
 	plot(x, y, type='l', lwd=5, col='blue',
 		xlab='x', ylab="p(x)",
 		ylim=c(0,1.2),
-		main=bquote(atop("Densite de la loi gamma", 
-		  "Gamma("*r*'='*.(signif(r(),2))*', '*lambda *'='*.(signif(lambda(),1)) *'), ou scale= ' *.(signif(1/lambda(),2))*' pour R'  ))
+		main=bquote(atop("Densite de la loi gamma pour JAGS", 
+		  "dgamma("*r*'='*.(signif(r(),2))*', '*lambda *'='*.(signif(lambda(),1)) *'), ou scale = ' *.(signif(1/lambda(),2))*' pour R'  ))
 	)
 	a <- qgamma(0.025, shape=r(), scale=theta())
 	b <- qgamma(0.975, shape=r(), scale=theta())
@@ -658,7 +658,7 @@ serverGamma <- function(input, output) {
 	arrows(x0=a,y0=0, x1=b,y1=0, col='blue', code=3, angle=17.5, length=0.15)
 	esperance <- r()*theta()
 	lines(rep(esperance,2),  c(0,max(y)), col='blue', lwd=3)
-	text(esperance, 0.75*max(y), 'Esperance', col='blue', cex=2, adj=0)
+	text(esperance, 0.75*max(y), paste('Esp. = ',signif(esperance,3)), col='blue', cex=2, adj=0)
     })
 
   output$precision <- renderPlot({	
@@ -667,7 +667,7 @@ serverGamma <- function(input, output) {
 	preci <- 1/theta()
 	plot(x,y, type='l', col='blue', lwd=2,
 		xlab=bquote(theta), ylab=bquote('Taux = '~lambda), 
-		main=bquote('Taux ='~lambda~frac(1,theta)),
+		main=bquote('Taux ='~lambda*'='*frac(1,theta)),
 		log='y',
 		xlim=c(0,6)
 	)
