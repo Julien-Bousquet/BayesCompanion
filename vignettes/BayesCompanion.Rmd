@@ -17,5 +17,3 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(BayesCompanion)
 ```
-
-La vignette reste à écrire.

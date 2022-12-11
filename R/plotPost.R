@@ -3,6 +3,28 @@
 #' @import grDevices
 NULL
 
+#' Add legend on crosscor.plot() 
+#'
+#' This function use crosscor.plot() from coda, and add the
+#' variables' names above the diagonal. Help understand
+#' correlations problems in MCMC. 
+#'
+#' @author Julien Bousquet (2022)
+#' @param MCMC an MCMC sample from JAGS 
+#' @examples
+#' #  no example
+#' @export
+
+crosscorr <-  function(MCMC) {
+Ndis1 <- length(varnames(MCMC))
+  coda::crosscorr.plot(MCMC)
+  text(1:Ndis1-0.5, -0.5, 1:Ndis1,cex=0.5)
+  text(-0.5, Ndis1:1-0.5,  1:Ndis1,cex=0.5)
+  text(1:Ndis1-0.5, Ndis1:1-0.5,  1:Ndis1,cex=0.5)
+  text(1:Ndis1-0.5, Ndis1:1+0.5, 
+  varnames(MCMC),srt=45 ,cex=0.5, adj=0)
+}
+
 #' Function for opening a graphic device.
 #'
 #' Function for opening graphics that operate the same for 
