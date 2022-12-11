@@ -19,6 +19,9 @@ gammaParams(shape = NA, rate = NA, m = NA, sd = NA, mode = NA, verbose = FALSE)
 
 \item{verbose}{= FALSE set to TRUE to get more explanation}
 }
+\value{
+A vector of all possible values of parameters
+}
 \description{
 Compute params of gamma distribution
 from other meaningfull params.

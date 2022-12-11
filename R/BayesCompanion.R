@@ -17,7 +17,7 @@ NULL
 #' @param mode of the distribution
 #' @param verbose = FALSE set to TRUE to get more explanation
 #'
-#' @return A list of all possible values of parameters
+#' @return A vector of all possible values of parameters
 #' 
 #' @examples 
 #' betaParams(mean=0.5, k=8)
@@ -37,11 +37,11 @@ betaParams <- function(a=NA, b=NA, mean=NA, sd=NA, k=NA, mode=NA, verbose=FALSE)
 		m <- a/(a+b) # (re-)compute mean from a and b
 		if(debg)cat("m= ",m,'\n')
 		if(debg)cat("la racine recoit :",m*(1-m)/(a/m+1),'\n')
-		res <- list(
+		res <- c(
 				  a=a, b=b, mean=m, mode=(a-1)/(a+b-2), concentration=a+b, 
 				  sd=sqrt(m*(1-m)/(a/m+1))
 				)
-		if(debg)print('List of response is created')
+		if(debg)print('Vector of responses is created')
 		return(res); #break
   }
 	# a and b from mean et sd 
@@ -90,6 +90,8 @@ betaParams <- function(a=NA, b=NA, mean=NA, sd=NA, k=NA, mode=NA, verbose=FALSE)
 #' @param sd standard deviation of the distribution
 #' @param mode of the distribution
 #' @param verbose = FALSE set to TRUE to get more explanation
+#'
+#' @return A vector of all possible values of parameters
 #' 
 #' @export
 #' @examples 
@@ -104,14 +106,14 @@ betaParams <- function(a=NA, b=NA, mean=NA, sd=NA, k=NA, mode=NA, verbose=FALSE)
 		if(shape<=0 | rate<=0)stop("Shape and rate parameter must be positive  for a gamma distribution.")
 		if(debg)cat("s= ",shape,'\n')
 		if(debg)cat("r= ",rate,'\n')
-		res <- list(
+		res <- c(
 			shape=shape, rate=rate, 
 			mean=shape/rate, 
 			mode=max(c((shape-1)/rate, 0)),
 			sd=sqrt(shape)/rate,
 			scale=1/rate
 			)
-		if(debg)print('List of response is created')
+		if(debg)print('Vector of responses is created')
 		return(res); #break
   }
 	# shape and rate from mean et sd 

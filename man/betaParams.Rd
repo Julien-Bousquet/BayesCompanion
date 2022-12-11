@@ -30,7 +30,7 @@ betaParams(
 \item{verbose}{= FALSE set to TRUE to get more explanation}
 }
 \value{
-A list of all possible values of parameters
+A vector of all possible values of parameters
 }
 \description{
 Compute $a$ and $b$ params of beta distribution
